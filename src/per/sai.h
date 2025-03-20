@@ -97,6 +97,7 @@ class SaiHandle
         BitDepth   bit_depth;
         Sync       a_sync, b_sync;
         Direction  a_dir, b_dir;
+        size_t tdm_slots = 0; // default 0 = no TDM
     };
 
     /** Return values for SAI functions */
@@ -133,7 +134,7 @@ class SaiHandle
      */
     Result StartDma(int32_t*            buffer_rx,
                     int32_t*            buffer_tx,
-                    size_t              size,
+                    size_t              block_size,
                     CallbackFunctionPtr callback);
 
     /** Stops the DMA stream for the SAI blocks in use. */
