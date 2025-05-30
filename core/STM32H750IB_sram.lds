@@ -48,6 +48,22 @@ SECTIONS
 
 	} > SRAM
 
+    /* SDMMC DMA Buffer (в RAM_D1) */
+    .sdmmc_buf (NOLOAD) :
+    {
+        . = ALIGN(32); /* выравнивание на 32 байта для DMA */
+        _ssdmmc_buf = .;
+
+        PROVIDE(__sdmmc_buf_start__ = _ssdmmc_buf);
+        KEEP(*(.sdmmc_buf))
+        KEEP(*(.sdmmc_buf*))
+
+        . = ALIGN(32);
+        _esdmmc_buf = .;
+
+        PROVIDE(__sdmmc_buf_end__ = _esdmmc_buf);
+    } > SRAM
+
 	.ARM.extab :
 	{
 		. = ALIGN(4);
